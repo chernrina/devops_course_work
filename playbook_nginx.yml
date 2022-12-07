@@ -1,0 +1,27 @@
+---
+- name: Install nginx
+  hosts: lb
+  become: yes  
+  
+  tasks:
+  - name: Install nginx host
+    ansible.builtin.yum:
+      name: nginx
+      state: latest
+
+  - name: Is started
+    ansible.builtin.service:
+      name: nginx
+      enabled: yes
+      state: started
+
+  - name : copy config
+    copy: 
+      src: nginx.conf
+      dest: /etc/nginx/nginx.conf
+
+  - name: restart
+    service:
+      name: nginx
+      state: restarted
+  

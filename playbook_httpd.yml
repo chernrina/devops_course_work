@@ -1,0 +1,43 @@
+---
+- name: Install httpd apps
+  hosts: apps1, apps2
+  become: yes  
+  
+  tasks:
+  - name: Install httpd host
+    ansible.builtin.yum:
+      name: httpd
+      state: latest
+
+  - name: Is started
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  - name: body ntml
+    copy:
+      content: "<h1> Hello from {{ host_name }} </h1>"
+      dest: "/var/www/html/index.html"
+          
+  - name: start firewalld
+    service:
+      name: firewalld
+      state: started
+      masked: no
+      enabled: yes
+  
+  - name: adding port
+    firewalld:
+      port: "80/tcp"
+      permanent: yes
+      state: enabled
+      immediate: yes
+  
+  - name: restart
+    service:
+      name: httpd
+      state: restarted      
+
+
+
