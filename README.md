@@ -13,3 +13,7 @@
 > jenkins_config_httpd.xml - jenkins job сборки для запуска плейбука установки httpd 
 
 > jenkins httpd/nginx output (jpeg) - вывод консоли при сборках 
+
+## Result
+
+![Image result](https://github.com/chernrina/devops_course_work/raw/master/result.png)
